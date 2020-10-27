@@ -1,7 +1,7 @@
 package htbla.aud3.graphtheory;
 
 /**
- * @author Andreas, David, Stephan
+ * @author asturm, dweiss, sstieger
  */
 public class Edge {
     

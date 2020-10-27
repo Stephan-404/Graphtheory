@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author Andreas, David, Stephan
+ * @author asturm, dweiss, sstieger
  */
 public class Graph {
 

@@ -3,7 +3,7 @@ package htbla.aud3.graphtheory;
 import java.io.File;
 
 /**
- * @author Torsten Welsch
+ * @author asturm, dweiss, sstieger
  */
 public class Main {
 
