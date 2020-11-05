@@ -14,6 +14,7 @@ public class Graph {
     Integer[] prev;
     double[] dist;
     int n=100;
+    int pathValue;
      static final double EPS = 1e-6;
     public void read(File adjacencyMatrix) {
         createEmptyGraph();
@@ -78,19 +79,21 @@ public class Graph {
             int[] pfad=path.stream()
                     .mapToInt(Integer::intValue)
                     .toArray();
-            return (new Path(pfad,0));
+
+
+            for(int i=0;i<pfad.length;i++){
+
+            }
+        return (new Path(pfad,pathValue));
     }
     public double dijkstra(int start, int end) {
-        // Maintain an array of the minimum distance to each node
         dist = new double[n];
         Arrays.fill(dist, Double.POSITIVE_INFINITY);
         dist[start] = 0;
 
-        // Keep a priority queue of the next most promising node to visit.
         PriorityQueue<Node> pq = new PriorityQueue<>(2 * n, comparator);
         pq.offer(new Node(start, 0));
 
-        // Array used to track which nodes have already been visited.
         boolean[] visited = new boolean[n];
         prev = new Integer[n];
 
@@ -98,34 +101,33 @@ public class Graph {
             Node node = pq.poll();
             visited[node.id] = true;
 
-            // We already found a better path before we got to
-            // processing this node so we can ignore it.
+
             if (dist[node.id] < node.value) continue;
 
             List<Edge> edges = graph.get(node.id);
             for (int i = 0; i < edges.size(); i++) {
                 Edge edge = edges.get(i);
 
-                // You cannot get a shorter path by revisiting
-                // a node you have already visited before.
+
                 if (visited[edge.to]) continue;
 
-                // Relax edge by updating minimum cost if applicable.
+
                 double newDist = dist[edge.from] + edge.dist;
                 if (newDist < dist[edge.to]) {
                     prev[edge.to] = edge.from;
+                    pathValue=pathValue+edge.dist;
                     dist[edge.to] = newDist;
                     pq.offer(new Node(edge.to, dist[edge.to]));
                 }
             }
-            // Once we've visited all the nodes spanning from the end
-            // node we know we can return the minimum distance value to
-            // the end node because it cannot get any better after this point.
+
             if (node.id == end) return dist[end];
         }
-        // End node is unreachable
+
         return Double.POSITIVE_INFINITY;
     }
+
+
     public Path determineShortestPath(int sourceNodeId, int targetNodeId, int... viaNodeIds) {
         return null;
     }
