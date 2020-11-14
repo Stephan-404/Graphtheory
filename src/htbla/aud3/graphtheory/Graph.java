@@ -147,6 +147,8 @@ public class Graph {
 
 
     public Path determineShortestPath(int sourceNodeId, int targetNodeId, int... viaNodeIds) {
+
+       //unklar , benötige Torsten wegen fragen
         return null;
     }
 

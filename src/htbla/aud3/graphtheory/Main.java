@@ -14,7 +14,7 @@ public class Main {
         //File f= new File("Linz_Suchproblem.csv");
         //System.out.printf(f.getAbsolutePath());
         g.read(new File(path));
-        Path p=g.determineShortestPath(1,33);
+        Path p=g.determineShortestPath(1,56);
         int[] i=p.path;
         for(int x:i){
             System.out.print(x+"-->");
