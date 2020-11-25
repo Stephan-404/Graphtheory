@@ -13,8 +13,8 @@ public class Main {
 
         String path="Linz_Suchproblem.csv";
         g.read(new File(path));
-        //Path p=g.determineShortestPath(0,32);
-        Path p=g.determineShortestPath(0,32,1,2);
+        Path p=g.determineShortestPath(1,32);
+        //Path p=g.determineShortestPath(0,32,1,2);
         int[] i=p.path;
         for(int x:i){
             System.out.print(x+"-->");
