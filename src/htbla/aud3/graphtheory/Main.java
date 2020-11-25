@@ -8,18 +8,23 @@ import java.io.File;
 public class Main {
 
     public static void main(String[] args) {
-        Graph g= new Graph();
-        String path="Linz_Suchproblem.csv";
-        //Test to find file
-        //File f= new File("Linz_Suchproblem.csv");
-        //System.out.printf(f.getAbsolutePath());
-        g.read(new File(path));
-        Path p=g.determineShortestPath(1,56);
-        int[] i=p.path;
-        for(int x:i){
-            System.out.print(x+"-->");
-        }
-//        System.out.println("goal    Distance:"+(p.dist/1000)+" km");
-        System.out.println("goal    Distance:"+(p.dist)+" m");
+        Graph g= new Graph(100,1,2);
+
+
+//        String path="Linz_Suchproblem.csv";
+//        g.read(new File(path));
+//        Path p=g.determineShortestPath(1,30);
+//        int[] i=p.path;
+//        for(int x:i){
+//            System.out.print(x+"-->");
+//        }
+//
+//        System.out.println("goal    Distance:"+(p.dist)+" m");
+
+        String path="Linz_Flussproblem.csv";
+        //g.read(new File(path));
+        g.manuelInput();
+        System.out.println();
+        System.out.println(g.determineMaximumFlow(1,2));
     }
 }
