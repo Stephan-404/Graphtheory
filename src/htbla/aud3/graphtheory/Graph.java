@@ -5,9 +5,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.util.*;
+import java.util.stream.Stream;
 
 import static java.lang.Math.max;
 import static java.lang.Math.min;
+
 
 /**
  * @author asturm, dweiss, sstieger
@@ -187,8 +189,23 @@ public class Graph{
 
 
     public Path determineShortestPath(int sourceNodeId, int targetNodeId, int... viaNodeIds) {
-       //unklar , benötige Torsten wegen fragen
-        return null;
+        Path p=determineShortestPath(sourceNodeId,viaNodeIds[0]);
+
+        double dist=0;
+        int lastpoint=viaNodeIds[0];
+        if(viaNodeIds.length>0){
+            for(int i=1;i<viaNodeIds.length;i++){
+                Path p2=determineShortestPath(lastpoint,viaNodeIds[i]);
+                p.addNodeIds(p2.getNodeIds());
+                p.addDist(p2.getDist());
+                lastpoint=viaNodeIds[i];
+            }
+        }
+            Path p2=determineShortestPath(lastpoint,targetNodeId);
+            p.addNodeIds(p2.getNodeIds());
+            p.addDist(p2.getDist());
+        //TODO fix dist
+        return p;
     }
 
 
@@ -382,11 +399,7 @@ public class Graph{
         visitedToken++;
     }
 
-    /**
-     * Returns the graph after the solver has been executed. This allow you to inspect the {@link
-     * Edge#flow} compared to the {@link Edge#capacity} in each edge. This is useful if you want to
-     * figure out which edges were used during the max flow.
-     */
+
     public List<Edge>[] getGraph() {
         execute();
         return graph2;
