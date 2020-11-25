@@ -19,7 +19,7 @@ public class Graph{
 
     Integer[] prev;
     double[] dist;
-    int n = 100;
+    int n = 60;
     int s;
     int t;
     long pathValue;
@@ -151,14 +151,19 @@ public class Graph{
     }
 
     public double dijkstra(int start, int end) {
+
+        //Array mit der minimalen Distanz zu jedem Node
         dist = new double[n];
         Arrays.fill(dist, Double.POSITIVE_INFINITY);
         dist[start] = 0;
 
+        //Priority Queue die nach werten sotiert ist, so hat man das wahrscheinlichste ergebnis schneller
         PriorityQueue<Node> pq = new PriorityQueue<>(2 * n, comparator);
         pq.offer(new Node(start, 0));
 
+        //visited ist da um die übersicht der schon besuchten nodes zu bewahren
         boolean[] visited = new boolean[n];
+        //in prev wird der Pfad abgespeichert
         prev = new Integer[n];
 
         while (!pq.isEmpty()) {
@@ -168,10 +173,13 @@ public class Graph{
 
             if (dist[node.id] < node.value) continue;
 
+
+            //wir holen uns alle verbindungen von der akutellen node kontrollieren sie alle
             List<Edge> edges = graph.get(node.id);
             for (int i = 0; i < edges.size(); i++) {
                 Edge edge = edges.get(i);
 
+                //waren wir schon bei der edge?
                 if (visited[edge.to]) continue;
 
                 double newDist = dist[edge.from] + edge.capacity;
@@ -274,7 +282,7 @@ public class Graph{
 
     private long dfs(int node, long flow) {
         // At sink node, return augmented path flow.
-        if (node == targetNodeId) return flow;
+        if (node == targetNodeId ) return flow;
 
         List<Edge> edges = graph2[node];
         visit(node);
