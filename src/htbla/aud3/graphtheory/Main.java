@@ -13,8 +13,8 @@ public class Main {
 
         String path="Linz_Suchproblem.csv";
         g.read(new File(path));
-        Path p=g.determineShortestPath(1,33);
-        //Path p=g.determineShortestPath(0,32,1,2);
+        Path p=g.determineShortestPath(33,5);
+        //Path p=g.determineShortestPath(33,5,3);
         int[] i=p.path;
         for(int x:i){
             System.out.print(x+"-->");
@@ -23,9 +23,9 @@ public class Main {
         System.out.println("goal    Distance:"+(p.dist)+" m");
 
 //        String path="Linz_Flussproblem.csv";
-//        //g.read(new File(path));
-//        g.manuelInput();
+//        g.read(new File(path));
+//        //g.manuelInput();
 //        System.out.println();
-//        System.out.println(g.determineMaximumFlow(1,2));
+//        System.out.println(g.determineMaximumFlow(1,3));
     }
 }

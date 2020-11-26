@@ -63,9 +63,10 @@ public class Graph{
         for (int i = 0; i < s.size(); i++) {
             for (int j = 0; j < s.get(i).size(); j++) {
                 if ((s.get(i)).get(j) != 0) {
-                    System.out.println("Add connection From:" + i + "  To:" + j + "  " + (s.get(i)).get(j));
+                    System.out.println("Add connection From:" + (i) + "  To:" + (j) + "  " + (s.get(i)).get(j));
                     //e.add(new Edge(i,j,(s.get(i)).get(j)));
-                    graph.get(i).add(new Edge(i, j, (s.get(i)).get(j),(s.get(i)).get(j)));
+                    //graph.get(i).add(new Edge((i+1), (j+1), ((s.get(i)).get(j)+1),((s.get(i)).get(j)+1)));
+                    graph.get(i).add(new Edge(i, j, ((s.get(i)).get(j)),((s.get(i)).get(j))));
 
                     //wichtig fürs flussproblem
                     delta = max(delta, (s.get(i)).get(j));
@@ -80,9 +81,7 @@ public class Graph{
         initializeGraph();
         addEdge(0,1,50);
         addEdge(1,2,30);
-        addEdge(1,5,10);
-        addEdge(5,3,100);
-        addEdge(2,3,20);
+        addEdge(1,3,10);
         delta=50;
 
     }
@@ -170,7 +169,7 @@ public class Graph{
             Node node = pq.poll();
             visited[node.id] = true;
 
-
+            //besserer Pfad wurde gefunden
             if (dist[node.id] < node.value) continue;
 
 
@@ -284,13 +283,14 @@ public class Graph{
         // At sink node, return augmented path flow.
         if (node == targetNodeId ) return flow;
 
+        //System.out.println(flow);
+
         List<Edge> edges = graph2[node];
         visit(node);
 
         for (Edge edge : edges) {
             long cap = edge.remainingCapacity();
             if (cap >= delta && !visited(edge.to)) {
-
                 long bottleNeck = dfs(edge.to, min(flow, cap));
                 //System.out.println("BN "+cap +" between "+edge.from+" "+edge.to);
 
@@ -383,20 +383,14 @@ public class Graph{
     protected boolean[] minCut;
 
 
-    // 'visited' and 'visitedToken' are variables used for graph sub-routines to
-    // track whether a node has been visited or not. In particular, node 'i' was
-    // recently visited if visited[i] == visitedToken is true. This is handy
-    // because to mark all nodes as unvisited simply increment the visitedToken.
 
-
-    // Indicates whether the network flow algorithm has ran. We should not need to
-    // run the solver multiple times, because it always yields the same result.
     private boolean solved;
 
     private void initializeGraph() {
         graph2 = new List[n];
         for (int i = 0; i < n; i++) graph2[i] = new ArrayList<Edge>();
     }
+
 
     public void addEdge(int from, int to, int capacity) {
         if (capacity < 0) throw new IllegalArgumentException("Capacity < 0");
@@ -410,56 +404,31 @@ public class Graph{
 
 
 
-    // Marks node 'i' as visited.
     public void visit(int i) {
         visited[i] = visitedToken;
     }
 
-    // Returns whether or not node 'i' has been visited.
     public boolean visited(int i) {
         return visited[i] == visitedToken;
     }
 
-    // Resets all nodes as unvisited. This is especially useful to do
-    // between iterations of finding augmenting paths, O(1)
+
     public void markAllNodesAsUnvisited() {
         visitedToken++;
     }
 
 
-    public List<Edge>[] getGraph() {
-        execute();
-        return graph2;
-    }
-
-    // Returns the maximum flow from the source to the sink.
     public long getMaxFlow() {
         execute();
         return maxFlow;
     }
 
-    // Returns the min cost from the source to the sink.
-    // NOTE: This method only applies to min-cost max-flow algorithms.
-    public long getMinCost() {
-        execute();
-        return minCost;
-    }
 
-    // Returns the min-cut of this flow network in which the nodes on the "left side"
-    // of the cut with the source are marked as true and those on the "right side"
-    // of the cut with the sink are marked as false.
-    public boolean[] getMinCut() {
-        execute();
-        return minCut;
-    }
-
-    // Wrapper method that ensures we only call solve() once
     private void execute() {
         if (solved) return;
         solved = true;
         solve();
     }
 
-    // Method to implement which solves the network flow problem.
 
 }
