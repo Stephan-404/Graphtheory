@@ -11,16 +11,18 @@ public class Main {
         Graph g= new Graph(100,1,2);
 
 
-        String path="Linz_Suchproblem.csv";
-        g.read(new File(path));
-        Path p=g.determineShortestPath(33,5);
-        //Path p=g.determineShortestPath(33,5,3);
-        int[] i=p.path;
-        for(int x:i){
-            System.out.print(x+"-->");
-        }
+//        String path="Linz_Suchproblem.csv";
+//        g.read(new File(path));
+//        Path p=g.determineShortestPath(0,2);
+//        //Path p=g.determineShortestPath(33,5,3);
+//        int[] i=p.path;
+//        for(int x:i){
+//            System.out.print(x+"-->");
+//        }
+//
+//        System.out.println("goal    Distance:"+(p.dist)+" m");
 
-        System.out.println("goal    Distance:"+(p.dist)+" m");
+
 
 //        String path="Linz_Flussproblem.csv";
 //        g.read(new File(path));

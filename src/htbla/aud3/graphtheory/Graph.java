@@ -63,7 +63,7 @@ public class Graph{
         for (int i = 0; i < s.size(); i++) {
             for (int j = 0; j < s.get(i).size(); j++) {
                 if ((s.get(i)).get(j) != 0) {
-                    System.out.println("Add connection From:" + (i) + "  To:" + (j) + "  " + (s.get(i)).get(j));
+                    System.out.println("Add connection From:" + i + "  To:" + j + "  " + (s.get(i)).get(j));
                     //e.add(new Edge(i,j,(s.get(i)).get(j)));
                     //graph.get(i).add(new Edge((i+1), (j+1), ((s.get(i)).get(j)+1),((s.get(i)).get(j)+1)));
                     graph.get(i).add(new Edge(i, j, ((s.get(i)).get(j)),((s.get(i)).get(j))));
@@ -181,10 +181,11 @@ public class Graph{
                 //waren wir schon bei der edge?
                 if (visited[edge.to]) continue;
 
+                //falls neue dist größer als die vorherige dan wird sie übernommen
                 double newDist = dist[edge.from] + edge.capacity;
                 if (newDist < dist[edge.to]) {
                     prev[edge.to] = edge.from;
-                   // pathValue = pathValue + edge.dist;
+                    //pathValue = pathValue + edge.dist;
                     dist[edge.to] = newDist;
                     pq.offer(new Node(edge.to, dist[edge.to]));
                 }
@@ -196,6 +197,9 @@ public class Graph{
 
 
     public Path determineShortestPath(int sourceNodeId, int targetNodeId, int... viaNodeIds) {
+        //wenn wir pfad von x nach y über z und g berechen wollen dann berechnen wir den
+        //Pfad von x nach z, z nach g, und g nach y und hängen sie zusammen.
+
         Path p=determineShortestPath(sourceNodeId,viaNodeIds[0]);
 
         double dist=0;
@@ -292,7 +296,9 @@ public class Graph{
             long cap = edge.remainingCapacity();
             if (cap >= delta && !visited(edge.to)) {
                 long bottleNeck = dfs(edge.to, min(flow, cap));
-                //System.out.println("BN "+cap +" between "+edge.from+" "+edge.to);
+
+                //System.out.println();
+
 
                 // Augment flow with bottle neck value
                 if (bottleNeck > 0) {
