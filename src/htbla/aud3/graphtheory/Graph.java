@@ -38,6 +38,10 @@ public class Graph{
         visited = new int[n];
     }
 
+    public List<List<Edge>> getGraph() {
+        return graph;
+    }
+
     public void read(File adjacencyMatrix) {
         initializeGraph();
         createEmptyGraph();
@@ -79,9 +83,10 @@ public class Graph{
 
     public void manuelInput(){
         initializeGraph();
-        addEdge(0,1,50);
+        addEdge(0,1,150);
         addEdge(1,2,30);
-        addEdge(1,3,10);
+        addEdge(2,3,30);
+        addEdge(1,3,100);
         delta=50;
 
     }
@@ -215,7 +220,6 @@ public class Graph{
             Path p2=determineShortestPath(lastpoint,targetNodeId);
             p.addNodeIds(p2.getNodeIds());
             p.addDist(p2.getDist());
-        //TODO fix dist
         return p;
     }
 
